@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-06-02 Thu 23:29 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Web interface to User Directory Application</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="VLEAD" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Web interface to User Directory Application</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Introduction</a></li>
+<li><a href="#orgheadline2">2. What we have so far ????</a></li>
+<li><a href="#orgheadline7">3. What is MVC framework</a>
+<ul>
+<li><a href="#orgheadline3">3.1. Model</a></li>
+<li><a href="#orgheadline4">3.2. View</a></li>
+<li><a href="#orgheadline5">3.3. Controller</a></li>
+<li><a href="#orgheadline6">3.4. Advantages</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline8">4. Why MVC ??</a></li>
+<li><a href="#orgheadline22">5. How to implement ??</a>
+<ul>
+<li><a href="#orgheadline21">5.1. Source Code</a>
+<ul>
+<li><a href="#orgheadline9">5.1.1. Initiating Angular application on html page</a></li>
+<li><a href="#orgheadline10">5.1.2. Router</a></li>
+<li><a href="#orgheadline15">5.1.3. Controller</a></li>
+<li><a href="#orgheadline20">5.1.4. View</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This document discribes how to implement a simple web application
+using AngularJS MVC framework.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> What we have so far ????</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>Requirements</li>
+<li>Data Model</li>
+<li>Object implementation of the data model</li>
+<li>Persistence via ORM (Database)</li>
+<li>REST API url interface (a specification of urls for each operation)</li>
+<li>Web interface to system ???</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">3</span> What is MVC framework</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>The Model-View-Controller (MVC) is an architectural pattern that
+separates an application into three main logical components
+<ul class="org-ul">
+<li>The model</li>
+<li>The view and</li>
+<li>The controller.</li>
+</ul></li>
+
+<li>Each of these components are built to handle specific development
+aspects of an application.</li>
+
+<li>MVC is one of the most frequently used industry-standard web
+development framework to create scalable and extensible projects.</li>
+
+<li><p>
+Diagrame
+</p></li>
+</ul>
+
+<div class="figure">
+<p><img src="./mvc.jpg" alt="mvc.jpg" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">3.1</span> Model</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+The Model is the part of the application that handles the logic for
+the application data.  Often model objects retrieve data (and store
+data) from a database.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">3.2</span> View</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+The View is the parts of the application that handles the display of
+the data.  Most often the views are created from the model data.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">3.3</span> Controller</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+The Controller is the part of the application that handles user interaction.
+Typically controllers read data from a view, control user input, and send input data to the model.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">3.4</span> Advantages</h3>
+<div class="outline-text-3" id="text-3-4">
+<ul class="org-ul">
+<li>The MVC separation helps you manage complex applications, because
+you can focus on one aspect a time. For example, you can focus on
+the view without depending on the business logic. It also makes it
+easier to test an application.</li>
+
+<li>The MVC separation also simplifies group development. Different</li>
+</ul>
+<p>
+developers can work on the view, the controller logic, and the
+business logic in parallel.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">4</span> Why MVC ??</h2>
+</div>
+<div id="outline-container-orgheadline22" class="outline-2">
+<h2 id="orgheadline22"><span class="section-number-2">5</span> How to implement ??</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21"><span class="section-number-3">5.1</span> Source Code</h3>
+<div class="outline-text-3" id="text-5-1">
+</div><div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9"><span class="section-number-4">5.1.1</span> Initiating Angular application on html page</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<div class="org-src-container">
+
+<pre class="src src-html">&lt;div ng-app="directoryApp"&gt;
+  &lt;div ng-view&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">5.1.2</span> Router</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<ul class="org-ul">
+<li><code>app.js</code>
+<ul class="org-ul">
+<li>The following <code>route</code> is implemented for displaying the list of all
+users.The controller <code>users</code> will fetch the data from REST API and will
+render to the template <code>users.html</code></li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">var app = angular.module('directoryApp',['ngRoute','directoryApp.controllers']);
+app.config(function($routeProvider){
+  $routeProvider
+    .when('/', {
+      templateUrl : '/static/partials/users.html',
+      controller  : 'users'
+    })
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>The following <code>route</code> is implemented for displaying detailed view of a specific
+user. The controller <code>view-users</code> will fetch the data from REST API and will
+render to the template <code>view-user.html</code></li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-javascript">    .when('/view-user/:id', {
+      templateUrl : '/static/partials/view-user.html',
+      controller  : 'view-users'
+    })
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Following <code>route</code> is implemented for adding a new user . The controller
+<code>add-users</code> will fetch the data from REST API and will render to the template
+<code>add-user.html</code></li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">    .when('/add-user',{
+      templateUrl : '/static/partials/add-user.html',
+      controller  : 'add-user'
+    })
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Following <code>route</code> is implemented for editing the details of an existing
+user. The controller <code>edit-user</code> will fetch the data from REST API and will
+render to the template <code>edit-user.html</code></li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">    .when('/edit-user/:id', {
+      templateUrl : '/static/partials/edit-user.html',
+      controller  : 'edit-user'
+    });
+
+});
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">5.1.3</span> Controller</h4>
+<div class="outline-text-4" id="text-5-1-3">
+<ul class="org-ul">
+<li><code>controller.py</code></li>
+</ul>
+</div>
+<ol class="org-ol"><li><a id="orgheadline11"></a>Users Controller<br  /><div class="outline-text-5" id="text-5-1-3-1">
+<ul class="org-ul">
+<li>The following controller <code>users</code> makes a get request to <code>/users</code> and fetches
+the list all of users and stores the response in $scope.users</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">var app = angular.module('directoryApp.controllers',[]);
+app.controller("users", function($scope,  $http, $routeParams, $route,$window){
+    $scope.role_name = $window.role_name;
+    $scope.session_email = $window.session_email;
+    $http.get("http://localhost:5000/users").success(function(response){
+	$scope.users = response;
+    }).error(function(response){alert("Unable to display content.")});
+
+});
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline12"></a>View-users Controller<br  /><div class="outline-text-5" id="text-5-1-3-2">
+<ul class="org-ul">
+<li>The following controller <code>view-users</code> makes a get request to <code>/users/&lt;int:id&gt;</code> and
+stores the response in $scope.users</li>
+<li>Also the delete function makes a delete request  to <code>/users/</code></li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">app.controller("view-users", function($scope,  $http, $routeParams, $route,$window){
+    $scope.role_name = $window.role_name;
+    //alert($window.user_id);
+    $scope.user_id = $window.user_id;
+    $scope.session_email = $window.session_email;
+    $http.get("http://localhost:5000/users/" + $routeParams.id).success(function(response){
+	$scope.users = response;
+    }).error(function(response){
+    alert("Unable to display the user.");
+    });
+
+    $scope.delete_user = function() {
+        //alert("Delete function");
+        $http.delete("http://localhost:5000/users/" + $routeParams.id, {headers : {'session' : $window.session_email}}).success(function(response){
+        history.back();}).error(function(response){
+        alert("Unable to delete user.");
+        });
+            };
+
+
+
+});
+</pre>
+</div>
+</div></li>
+<li><a id="orgheadline13"></a>Add-user Controller<br  /><div class="outline-text-5" id="text-5-1-3-3">
+<ul class="org-ul">
+<li>The following controller <code>add-user</code> makes a post request to <code>/users</code> by
+passing a payload consisting of name,email,role and session(email of admin
+who is adding the user)</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">app.controller("add-user", function($scope,   $http,  $routeParams,  $route,$window){
+    $scope.role_name=$window.role_name;
+    $scope.session_email=$window.session_email;
+    $scope.myText="you haven't clicked submit yet";
+    $scope.add_user=function(){
+       
+       var data={
+            name:$scope.name,
+            email:$scope.email,
+            role:$scope.role,
+            session: $scope.session_email
+            };
+            console.log((data))
+            console.log(typeof data)
+            
+            $http.post("http://localhost:5000/users",data).success(function(reponse){
+            $scope.PostDataResponse=data;
+            $scope.myText="You added successfully";
+            history.back();
+            }).error(function(response) {
+            
+            $scope.ResponseDetails ="Data:" +data+
+            "&lt;hr /&gt;status: " + status +
+            "&lt;hr /&gt;headers: " + header +
+            "&lt;hr /&gt;config: " + config;
+            alert("Unable to add user.");
+            });
+            
+            };
+});
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline14"></a>edit-user Controller<br  /><div class="outline-text-5" id="text-5-1-3-4">
+<ul class="org-ul">
+<li>The following controller <code>edit-user</code> makes a put request to <code>/users/&lt;int:id&gt;</code>
+by passing a payload that consists name, email,role_id and session(email of
+user who is logged in)</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">app.controller("edit-user", function($scope,   $http,  $routeParams,  $route,$window){
+    $scope.role_name=$window.role_name;
+    $scope.session_email=$window.session_email;
+    $scope.myText="you haven't clicked submit yet"
+    $scope.edit_user=function(){
+       
+       var data={
+            name:$scope.name,
+            email:$scope.email,
+            role_id:$scope.role,
+            session: $scope.session_email
+            };
+            console.log((data))
+            console.log(typeof data)
+            
+            $http.put("http://localhost:5000/users/" + $routeParams.id ,data).success(function(reponse){
+            $scope.PostDataResponse=data;
+            $scope.myText="You edited successfully";
+            }).error(function(response) {
+            $scope.ResponseDetails ="Data:" +data+
+            "&lt;hr /&gt;status: " + status +
+            "&lt;hr /&gt;headers: " + header +
+            "&lt;hr /&gt;config: " + config;
+            alert("Unable to edit user.");
+            });
+
+            };
+
+    
+});
+</pre>
+</div>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-4">
+<h4 id="orgheadline20"><span class="section-number-4">5.1.4</span> View</h4>
+<div class="outline-text-4" id="text-5-1-4">
+</div><ol class="org-ol"><li><a id="orgheadline16"></a>Users<br  /><div class="outline-text-5" id="text-5-1-4-1">
+<ul class="org-ul">
+<li><code>users.html</code></li>
+<li>This is html code that displays the list of all users</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-html">&lt;div class="row"&gt;
+  &lt;div class="col-md-9"&gt;&lt;h2&gt;Users&lt;/h2&gt;&lt;/div&gt;
+  &lt;div class="col-md-2" ng-if="role_name == 'admin'"&gt;
+    &lt;a href="#/add-user" class="btn btn-primary"&gt;Add User&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-md-12"&gt;
+    &lt;div class="table-responsive"&gt;
+      &lt;table class="table table-stripped"&gt;
+	&lt;thead&gt;
+	  &lt;tr&gt;
+	    &lt;th&gt;S.NO&lt;/th&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+	    &lt;th&gt;Role&lt;/th&gt;
+	    &lt;th&gt;Action&lt;/th&gt;
+	  &lt;/tr&gt;
+        &lt;/thead&gt;
+	&lt;tbody&gt;
+	  &lt;tr ng-repeat="user in users"&gt;
+	    &lt;td&gt;{{ $index+1 }}&lt;/td&gt;
+            &lt;td&gt;{{ user.name }}&lt;/td&gt;
+	    &lt;td&gt;{{ user.role['name'] }}&lt;/td&gt;
+            &lt;td&gt;&lt;a href="#/view-user/{{user.id}}" class="btn btn-primary"&gt;View&lt;/a&gt;&lt;/td&gt;
+	  &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline17"></a>View-user<br  /><div class="outline-text-5" id="text-5-1-4-2">
+<ul class="org-ul">
+<li><code>view-user.html</code>
+<ul class="org-ul">
+<li>This is the html code that displays all the detailed view of a specific
+user</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-html">&lt;div class="row"&gt;
+  &lt;div class="col-md-4"&gt;&lt;/div&gt;
+  &lt;div class="col-md-5"&gt;&lt;h2&gt;Details of &lt;b&gt;{{ users.name }}&lt;/b&gt;&lt;/h2&gt;&lt;/div&gt;
+  &lt;div class="col-md-3"&gt;
+    &lt;a onclick="history.back();" role="button" class="btn btn-success btn-large"&gt;Back&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-md-12"&gt;
+    &lt;div class="table-responsive"&gt;
+      &lt;table class="table table-stripped"&gt;
+	&lt;thead&gt;
+ 	  &lt;tr&gt;
+            &lt;th class="span3"&gt;Name&lt;/th&gt;
+	    &lt;th class="span7"&gt;Email-id&lt;/th&gt;
+	    &lt;th class="span2"&gt;Role&lt;/th&gt;
+	  &lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+	  &lt;tr&gt;
+            &lt;td&gt;{{ users.name }}&lt;/td&gt;
+	    &lt;td&gt;{{ users.email }}&lt;/td&gt;
+	    &lt;td&gt;{{ users.role }}&lt;/td&gt;
+          &lt;/tr&gt;
+
+      &lt;/tbody&gt;
+      &lt;/table&gt;
+      &lt;div class="col-md-12"&gt;
+	&lt;div class="col-md-4"&gt;&lt;/div&gt;
+	&lt;span ng-if="role_name == 'admin' || user_id == id"&gt;
+          &lt;a href="#/edit-user/{{id}}" class="btn btn-primary"&gt;Edit&lt;/a&gt;
+	  &lt;span ng-if="role_name == 'admin' &amp;&amp;  user_id != id"&gt;
+	    &lt;a class="btn btn-primary" ng-click="delete_user(id)"&gt;Delete&lt;/a&gt;
+	  &lt;/span&gt;
+	&lt;/span&gt;
+
+      &lt;/div&gt;
+      &lt;!--
+      &lt;div ng-if="user_id == (id+1)"&gt;
+        &lt;a href="#/edit-oc/{{oc.id}}" class="btn btn-primary"&gt;Edit&lt;/a&gt;
+
+	&lt;a class="btn btn-primary" ng-click="delete_oc(oc.id)"&gt;Delete&lt;/a&gt;
+      &lt;/div&gt;
+      --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div>
+</div></li>
+<li><a id="orgheadline18"></a>Add-user<br  /><div class="outline-text-5" id="text-5-1-4-3">
+<ul class="org-ul">
+<li>This html code displays the Add-user form</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-html">&lt;div class="row"&gt;
+  &lt;div class="col-md-4"&gt;&lt;/div&gt;
+  &lt;div class="col-md-4"&gt;
+    &lt;h2&gt;Add User&lt;/h2&gt;
+    &lt;span class="error"&gt; {{ status }} &lt;/span&gt;
+    &lt;form name="myForm" novalidate ng-submit="add_user(myForm.$valid)"&gt;
+      &lt;p&gt;Name:&lt;br&gt;
+	&lt;input type="text" class="form-control" name="user"
+               ng-pattern="/^[a-zA-Z\s]*$/" ng-model="name" required&gt;
+	&lt;span style="color:red" ng-show="myForm.user.$dirty &amp;&amp; myForm.user.$invalid"&gt;
+	  &lt;span ng-show="myForm.user.$error.required"&gt;Username is
+	    required.&lt;/span&gt;
+          &lt;span ng-show="myForm.user.$error.pattern"&gt;Enter valid name&lt;/span&gt;
+	&lt;/span&gt;
+      &lt;/p&gt;
+      &lt;p&gt;Email:&lt;br&gt;
+	&lt;input type="text" name="email" ng-pattern="/^[A-Za-z]+[A-Za-z0-9._-]+@[A-Za-z]+\.[A-Za-z.]{2,20}$/" class="form-control"  ng-model="email" required&gt;
+	&lt;span style="color:red" ng-show="myForm.email.$dirty &amp;&amp; myForm.email.$invalid"&gt;
+	  &lt;span ng-show="myForm.email.$error.required"&gt;Email is required.&lt;/span&gt;
+	  &lt;span ng-show="myForm.email.$error.pattern"&gt;Enter valid email-id&lt;/span&gt;
+	&lt;/span&gt;
+      &lt;/p&gt;
+      &lt;p&gt;Role id:&lt;br&gt;
+	&lt;input type="number" name="role" ng-pattern="/^(1|2)$/" class="form-control"  ng-model="role" required&gt;
+	&lt;span style="color:red" ng-show="myForm.role.$dirty &amp;&amp; myForm.role.$invalid"&gt;
+	  &lt;span ng-show="myForm.role.$error.required"&gt;Role is required.&lt;/span&gt;
+	  &lt;span ng-show="myForm.role.$error.pattern"&gt;Enter valid role-id&lt;/span&gt;
+	&lt;/span&gt;
+      &lt;/p&gt;
+      &lt;p&gt;
+	&lt;input type="submit" value="Save" class="btn btn-primary"  ng-disabled="myForm.$invalid"&gt;
+	&lt;a href="#/"&gt;Cancel&lt;/a&gt;
+      &lt;/p&gt;
+    &lt;/form&gt;
+    &lt;p&gt;{{ myText }} &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="col-md-4"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div>
+</div></li>
+<li><a id="orgheadline19"></a>Edit-user<br  /><div class="outline-text-5" id="text-5-1-4-4">
+<ul class="org-ul">
+<li>This html code displays the Edit-user form</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-html">&lt;div class="row"&gt;
+  &lt;div class="col-md-4"&gt;&lt;/div&gt;
+  &lt;div class="col-md-4"&gt;
+    &lt;h2&gt;Add User&lt;/h2&gt;
+    &lt;span class="error"&gt; {{ status }} &lt;/span&gt;
+    &lt;form name="myForm" novalidate ng-submit="add_user(myForm.$valid)"&gt;
+      &lt;p&gt;Name:&lt;br&gt;
+	&lt;input type="text" class="form-control" name="user"
+               ng-pattern="/^[a-zA-Z\s]*$/" ng-model="name" required&gt;
+	&lt;span style="color:red" ng-show="myForm.user.$dirty &amp;&amp; myForm.user.$invalid"&gt;
+	  &lt;span ng-show="myForm.user.$error.required"&gt;Username is
+	    required.&lt;/span&gt;
+          &lt;span ng-show="myForm.user.$error.pattern"&gt;Enter valid name&lt;/span&gt;
+	&lt;/span&gt;
+      &lt;/p&gt;
+      &lt;p&gt;Email:&lt;br&gt;
+	&lt;input type="text" name="email" ng-pattern="/^[A-Za-z]+[A-Za-z0-9._-]+@[A-Za-z]+\.[A-Za-z.]{2,20}$/" class="form-control"  ng-model="email" required&gt;
+	&lt;span style="color:red" ng-show="myForm.email.$dirty &amp;&amp; myForm.email.$invalid"&gt;
+	  &lt;span ng-show="myForm.email.$error.required"&gt;Email is required.&lt;/span&gt;
+	  &lt;span ng-show="myForm.email.$error.pattern"&gt;Enter valid email-id&lt;/span&gt;
+	&lt;/span&gt;
+      &lt;/p&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+  &lt;div class="col-md-4"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div>
+</div></li></ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: <span class="timestamp-wrapper"><span class="timestamp">[2016-05-11 Wed]</span></span></p>
+<p class="author">Author: VLEAD</p>
+<p class="date">Created: 2016-06-02 Thu 23:29</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
